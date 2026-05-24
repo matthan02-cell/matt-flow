@@ -1,0 +1,26 @@
+{
+  "name": "deye-inverter-flow-card",
+  "version": "1.0.0",
+  "description": "Home Assistant Lovelace custom card for visualizing real-time energy flow with Deye Inverter and LVFU batteries",
+  "main": "deye-inverter-flow-card.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/matthan02-cell/matt-flow.git"
+  },
+  "keywords": [
+    "home-assistant",
+    "lovelace",
+    "custom-card",
+    "deye-inverter",
+    "solar",
+    "lvfu-battery",
+    "energy-monitoring",
+    "flow-visualization"
+  ],
+  "author": "matthan02",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/matthan02-cell/matt-flow/issues"
+  },
+  "homepage": "https://github.com/matthan02-cell/matt-flow#readme"
+}
