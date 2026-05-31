@@ -1,0 +1,10 @@
+{
+  "name": "Deye Inverter Flow Card",
+  "content_in_root": true,
+  "filename": "deye-inverter-flow-card.js",
+  "homeassistant": "2021.12.0",
+  "version": "1.0.0",
+  "codeowners": [
+    "@matthan02-cell"
+  ]
+}
