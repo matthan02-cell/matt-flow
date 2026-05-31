@@ -1,156 +1,311 @@
-# Installation Guide
+# Installation Guide - Deye Inverter Flow Card (Master UI/UX Edition)
 
-## Quick Start (3 Steps)
+**Professional Home Assistant Lovelace Custom Card**
+
+## 🚀 Quick Start (5 Minutes)
 
 ### Step 1: Add to HACS
-1. Open **Home Assistant** → **HACS**
-2. Go to **Frontend** → **Custom repositories**
-3. Paste: `https://github.com/matthan02-cell/matt-flow`
-4. Select **Lovelace** as category
-5. Click **Create**
-6. Search for **deye-inverter-flow-card** → Download
+1. Open **HACS** → **Frontend** → **Custom repositories**
+2. Paste: `https://github.com/matthan02-cell/matt-flow`
+3. Select **Lovelace** category
+4. Click **Create**
+5. Search **deye-inverter-flow-card** → **Explore & Download**
 
 ### Step 2: Restart Home Assistant
-1. Settings → System → Restart
-2. Wait for restart to complete
+- Settings → System → **Restart**
+- Wait 2-3 minutes
 
-### Step 3: Add Card to Dashboard
-1. Open any dashboard in edit mode
-2. Click **+ Add Card** → **Custom: Deye Inverter Flow Card**
-3. Configure with your entity names
-4. Save and enjoy!
+### Step 3: Add Background Images
+1. Create folder: `/config/www/images/`
+2. Upload:
+   - `DayPhoto.jpg` (your daytime home photo)
+   - `NightPhoto.jpg` (your nighttime home photo)
 
----
+### Step 4: Add Card to Dashboard
+1. Edit dashboard → **Add Card** → **Custom: Deye Inverter Flow Card**
+2. Click **Edit card** (pencil icon)
+3. Enter your entity names (from Developer Tools)
+4. **Save**
 
-## Manual Installation (Alternative)
-
-### If HACS is not available:
-
-1. **Download the file:**
-   ```bash
-   # Clone the repository
-   git clone https://github.com/matthan02-cell/matt-flow.git
-   cd matt-flow
-   ```
-
-2. **Copy to Home Assistant:**
-   - Copy `deye-inverter-flow-card.js` to `/config/www/`
-   - (Create `/www` folder if it doesn't exist)
-
-3. **Register in Home Assistant:**
-   - Settings → Dashboards → Resources
-   - Click **Create resource**
-   - URL: `/local/deye-inverter-flow-card.js`
-   - Type: `JavaScript Module`
-   - Click **Create**
-
-4. **Hard refresh browser:**
-   - Windows/Linux: `Ctrl + Shift + R`
-   - Mac: `Cmd + Shift + R`
-
-5. **Add card to dashboard:**
-   - Edit dashboard → Add Card
-   - Select **Custom: Deye Inverter Flow Card**
+**Done! Your solar monitoring dashboard is ready.** ☀️
 
 ---
 
-## Prerequisites
+## 📋 Prerequisites
 
-### Required:
-- **Home Assistant** 2021.12+
-- **Deye Inverter** with integration
-- **LVFU Batteries** (2 units minimum)
-- Entities for solar, grid, and battery data
+### Required
+- Home Assistant 2021.12 or newer
+- Deye Inverter with Home Assistant integration
+- LVFU Batteries (x2) with entities in Home Assistant
+- HACS installed and configured
 
-### Optional:
-- Custom background image
+### Recommended
+- Modern browser (Chrome 90+, Firefox 88+, Safari 14+)
+- Custom background photos (1200x800px+, <500KB)
+- Wired network for stable integrations
 
 ---
 
-## Entity Setup
+## 🔧 Detailed Installation
 
-### 1. Deye Inverter Integration
+### Method 1: HACS Installation (Recommended)
 
-**If not already installed:**
-1. Settings → Devices & Services → Create Automation
-2. Search for Deye Inverter integration
-3. Install and configure with your inverter details
+#### A. Add Custom Repository
 
-**Verify these entities exist:**
 ```
-sensor.deye_total_pv_power
-sensor.deye_grid_power
-sensor.deye_load_power
+Home Assistant:
+1. HACS → Frontend (left menu)
+2. Click three dots (top right) → Custom repositories
+3. Paste: https://github.com/matthan02-cell/matt-flow
+4. Category: Lovelace
+5. Click Create
 ```
 
-Check in: Settings → Devices & Services → Entities (search "deye")
+#### B. Find and Install Card
 
-### 2. LVFU Battery Integration
-
-**Option A: CAN-Bus (Recommended)**
-1. Set up CAN-Bus adapter to your Home Assistant system
-2. Connect battery BMS via CAN
-3. Install CAN-Bus Home Assistant integration
-4. Entities will appear automatically
-
-**Option B: MQTT**
-1. Ensure batteries publish MQTT data
-2. Configure MQTT integration in Home Assistant
-3. Create sensors from MQTT topics
-
-**Option C: REST Sensors**
-1. If batteries expose HTTP API:
-   ```yaml
-   # In configuration.yaml
-   sensor:
-     - platform: rest
-       resource: http://battery-ip:port/api/soc
-       name: battery_1_soc
-       # Configure other endpoints similarly
-   ```
-
-**Verify these entities exist for each battery:**
 ```
-sensor.battery_1_soc        # State of Charge (0-100%)
-sensor.battery_1_power      # Power in Watts
-sensor.battery_1_voltage    # Voltage in Volts
-sensor.battery_1_current    # Current in Amps
-sensor.battery_1_temp       # Temperature in °C
+1. HACS → Frontend
+2. Search: "deye-inverter-flow-card"
+3. Click card result
+4. "Explore & Download" or "Download"
+5. Confirm installation
+```
 
-sensor.battery_2_soc        # Repeat for second battery
+#### C. Restart Home Assistant
+
+```
+Settings → System → Restart
+Wait for restart to complete
+```
+
+#### D. Clear Browser Cache
+
+```
+Hard refresh your browser:
+- Windows/Linux: Ctrl + Shift + R
+- Mac: Cmd + Shift + R
+- Mobile: Force refresh in address bar
+```
+
+#### E. Verify Installation
+
+```
+Settings → Dashboards → Resources
+You should see: /frontend_latest/deye-inverter-flow-card.js
+```
+
+### Method 2: Manual Installation
+
+#### A. Download Files
+
+```bash
+# Clone or download repository
+git clone https://github.com/matthan02-cell/matt-flow.git
+```
+
+#### B. Copy JavaScript File
+
+```
+Source: deye-inverter-flow-card.js
+Destination: /config/www/deye-inverter-flow-card.js
+
+Create /www folder if it doesn't exist:
+ssh into Home Assistant or use File Editor addon
+```
+
+#### C. Register in Home Assistant
+
+```
+Settings → Dashboards → Resources
+→ Create resource
+  URL: /local/deye-inverter-flow-card.js
+  Type: JavaScript Module
+→ Create
+```
+
+#### D. Hard Refresh Browser
+
+```
+Ctrl + Shift + R (or Cmd + Shift + R on Mac)
+```
+
+#### E. Add to Dashboard
+
+```
+Edit dashboard → Add Card
+→ Custom: Deye Inverter Flow Card
+```
+
+---
+
+## 📸 Background Images Setup
+
+### Download or Create Your Images
+
+You need two photos:
+1. **DayPhoto.jpg** - Home during daytime (sunset/sunrise OK)
+2. **NightPhoto.jpg** - Home at night (nighttime lighting)
+
+**Tips:**
+- Use your actual home for best results
+- Include solar panels in day photo
+- Show house lighting in night photo
+- Clear sky (daytime) and stars (nighttime) look great
+
+### Upload to Home Assistant
+
+#### Via SSH/Terminal
+```bash
+# SSH into Home Assistant
+ssh root@homeassistant
+
+# Create folder
+mkdir -p /config/www/images
+
+# Copy files
+cp DayPhoto.jpg /config/www/images/
+cp NightPhoto.jpg /config/www/images/
+
+# Verify
+ls -lah /config/www/images/
+```
+
+#### Via File Editor (GUI)
+1. Settings → Add-ons → File editor (if installed)
+2. Navigate to `www/` folder
+3. Create `images` folder
+4. Upload both photos
+
+#### Via SFTP Client (Windows/Mac)
+1. Use WinSCP, Transmit, or FileZilla
+2. Connect to Home Assistant SFTP
+3. Navigate to `/config/www/`
+4. Create `images` folder
+5. Drag and drop photos
+
+### Image Requirements
+
+**Specifications:**
+```
+Format: JPEG or PNG
+Size: 1200x800px minimum (1920x1080 recommended)
+File size: <500KB each (compression recommended)
+Aspect ratio: 16:9 or wider
+Color profile: sRGB
+```
+
+**Optimization Tools:**
+- TinyJPG: https://tinyjpg.com/
+- ImageOptim: https://imageoptim.com/
+- FileZilla: Built-in compression
+- Squoosh: https://squoosh.app/
+
+**How to Compress:**
+1. Open TinyJPG.com
+2. Drop images
+3. Download compressed versions
+4. Upload to `/config/www/images/`
+
+---
+
+## 🔍 Entity Setup
+
+### Verify Deye Inverter Entities
+
+1. **Settings → Developer Tools → States**
+2. **Search** for "deye"
+3. You should see:
+   - `sensor.deye_total_pv_power`
+   - `sensor.deye_grid_power`
+   - `sensor.deye_load_power`
+   - Optional: PV1, PV2, PV3, PV4 individual strings
+
+**If not visible:**
+- Restart Deye integration
+- Check integration is enabled
+- Verify Deye inverter credentials
+
+### Verify LVFU Battery Entities
+
+**Search for "battery"** in Developer Tools → States
+
+**You should see for each battery:**
+```
+sensor.battery_1_soc        (0-100%)
+sensor.battery_1_power      (Watts)
+sensor.battery_1_voltage    (Volts)
+sensor.battery_1_current    (Amps)
+sensor.battery_1_temp       (Celsius)
+
+sensor.battery_2_soc        (repeat for battery 2)
 sensor.battery_2_power
 sensor.battery_2_voltage
 sensor.battery_2_current
 sensor.battery_2_temp
 ```
 
+**If not visible:**
+- Install CAN-Bus/MQTT/REST integration
+- Configure battery BMS connection
+- Check Home Assistant logs for errors
+
+### Entity Name Mapping
+
+If your entities have different names, note the exact names:
+
+**Example variations:**
+```
+Option A (Simple):
+sensor.battery_1_soc
+
+Option B (Detailed):
+sensor.lvfu_battery_1_soc
+
+Option C (Can-Bus):
+sensor.bms_soc_1
+
+Option D (MQTT):
+sensor.battery/1/soc
+```
+
+Use the exact names in the card configuration.
+
 ---
 
-## Configuration
+## ⚙️ Card Configuration
 
-### Visual Editor (Recommended)
+### Visual Editor (Easiest)
 
-1. Add card: `type: custom:deye-inverter-flow-card`
-2. Click **Edit card**
-3. Fill in your entity names from Developer Tools
-4. Optionally add background image
-5. Click **Save**
+1. **Add Card** → **Custom: Deye Inverter Flow Card**
+2. Click **Edit card** (pencil icon)
+3. Fill in:
+   - **Card Title**: "Solar Energy Flow"
+   - **Inverter Name**: "Deye 5000W" (or your model)
+   - **Theme Mode**: "Auto" (recommended)
+   - **Solar Entities**: Your PV entity names
+   - **Grid Entity**: Your grid power entity
+   - **House Entity**: Your consumption entity
+   - **Battery 1 & 2**: All 5 fields per battery
+4. **Save**
 
 ### YAML Configuration
 
-Alternative YAML configuration:
+Add to your dashboard YAML:
 
 ```yaml
 type: custom:deye-inverter-flow-card
 title: "Solar Energy Flow"
+inverter_name: "Deye Inverter"
+theme_mode: auto
 
-# Inverter and Grid
+# Solar & Grid
 pv_total_power: sensor.deye_total_pv_power
 grid_power: sensor.deye_grid_power
 house_power: sensor.deye_load_power
 
-# Primary Battery
+# Battery 1
 battery_primary:
+  name: "Main Battery"
   soc: sensor.battery_1_soc
   power: sensor.battery_1_power
   voltage: sensor.battery_1_voltage
@@ -158,133 +313,232 @@ battery_primary:
   temp: sensor.battery_1_temp
   capacity_ah: 100
 
-# Secondary Battery
+# Battery 2
 battery_secondary:
+  name: "Backup Battery"
   soc: sensor.battery_2_soc
   power: sensor.battery_2_power
   voltage: sensor.battery_2_voltage
   current: sensor.battery_2_current
   temp: sensor.battery_2_temp
   capacity_ah: 100
+```
 
-# Optional appearance settings
-background_image: "/local/images/my-system.jpg"
-background_opacity: 0.15
+### Theme Mode Options
+
+```
+auto   - Switches day/night based on time and solar generation
+day    - Always show day theme (bright colors)
+night  - Always show night theme (dark colors)
 ```
 
 ---
 
-## Finding Your Entity Names
+## ✅ Testing & Verification
 
-### Method 1: Developer Tools (Easiest)
-
-1. Home Assistant → Settings → Developer Tools
-2. Go to **States** tab
-3. Search for your device name (e.g., "deye" or "battery")
-4. Note exact entity names (case-sensitive!)
-
-Example:
+### Step 1: Check Installation
 ```
-sensor.deye_total_pv_power ← This is your entity name
-sensor.battery_1_soc
+Browser Console (F12) → No errors?
+HACS → Shows "installed"?
+Dashboard Resources → File listed?
 ```
 
-### Method 2: Services Tab
+### Step 2: Verify Entities
+```
+Developer Tools → States
+Search for each entity name
+All should show numbers, not "unavailable"
+```
 
-1. Developer Tools → **Services** tab
-2. Call `recorder.get_statistics` to list all entities
-3. Search for your devices
+### Step 3: Check Background Images
+```
+F12 → Elements → Find <img> tags
+Network tab → Check images load (status 200)?
+File sizes <500KB?
+```
+
+### Step 4: Test Live Data
+```
+Edit an entity value in Developer Tools
+Card should update within 1 second
+All values should change appropriately
+```
+
+### Step 5: Test Theme Switching
+```
+Change theme_mode in card config
+Day theme: Light purple gradients
+Night theme: Dark navy gradients
+Background images should switch
+```
 
 ---
 
-## Testing Your Setup
+## 🐛 Troubleshooting
 
-### Before Adding Card:
+### Card Not Appearing
 
-1. **Verify all entities exist:**
-   - Settings → Developer Tools → States
-   - Search for each entity name
-   - Ensure values are numbers (not "unavailable")
-
-2. **Check entity values:**
-   - Click each entity to see current value
-   - Confirm they're updating (timestamps change)
-
-3. **Sample entities to verify:**
-   ```
-   sensor.deye_total_pv_power = 2500 (Watts)
-   sensor.deye_grid_power = -1200 (Watts, negative = export)
-   sensor.deye_load_power = 1300 (Watts)
-   sensor.battery_1_soc = 85 (%)
-   sensor.battery_1_power = 500 (Watts)
-   ```
-
-### After Adding Card:
-
-1. Refresh dashboard
-2. Verify values appear in card
-3. Check data updates in real-time
-4. Confirm background image displays (if configured)
-
----
-
-## Troubleshooting
-
-### Card doesn't appear
+**Checklist:**
 - [ ] Hard refresh browser (`Ctrl+Shift+R`)
-- [ ] Check HACS shows "Installed" status
-- [ ] Restart Home Assistant
-- [ ] Check browser console for errors (F12)
+- [ ] HACS shows "installed" (not "download")
+- [ ] Resource registered in Settings → Dashboards
+- [ ] No JavaScript errors in browser console (`F12`)
+- [ ] Home Assistant restarted
 
-### Entities show as "Unknown"
-- [ ] Verify entity names in Developer Tools
-- [ ] Check for typos (case-sensitive!)
-- [ ] Restart Home Assistant integration
-- [ ] Ensure integration is installed
+**If still missing:**
+1. Remove from dashboard
+2. Clear browser cache (Settings → Clear browsing data)
+3. Hard refresh
+4. Re-add card
 
-### Values not updating
-- [ ] Check entity state in Developer Tools
-- [ ] Verify integration is enabled
-- [ ] Check Home Assistant logs for errors
-- [ ] Restart the specific integration
+### Entities Show as 0 or Unknown
 
-### Background image not showing
-- [ ] Verify file in `/config/www/images/` exists
-- [ ] Check file path: `/local/images/filename.jpg`
-- [ ] Use supported format: JPG or PNG
-- [ ] Check browser console for 404 errors
+**Checklist:**
+- [ ] Developer Tools → States shows entities
+- [ ] Entity names match exactly (case-sensitive!)
+- [ ] Entity values are numbers, not "unavailable"
+- [ ] Integration enabled and running
+- [ ] No recent Home Assistant updates broken integration
 
-### Performance issues
-- [ ] Reduce background image size (< 500KB)
-- [ ] Lower opacity setting (0.10 instead of 0.15)
-- [ ] Disable browser extensions
-- [ ] Check Home Assistant system resources
+**If still not working:**
+1. Check Home Assistant logs (Settings → Logs)
+2. Restart the Deye/Battery integration
+3. Verify credentials in integration settings
+4. Re-check entity names character-by-character
+
+### Images Not Showing
+
+**Checklist:**
+- [ ] Files in `/config/www/images/DayPhoto.jpg`
+- [ ] Files in `/config/www/images/NightPhoto.jpg`
+- [ ] Files are JPEG or PNG format
+- [ ] File sizes reasonable (<500KB)
+- [ ] Browser console shows no 404 errors
+
+**If still not showing:**
+1. Open DevTools (F12) → Network tab
+2. Look for `DayPhoto.jpg` and `NightPhoto.jpg`
+3. Check status (200 = success, 404 = not found)
+4. Verify file names match exactly
+
+### Slow Performance
+
+**Checklist:**
+- [ ] Images compressed to <500KB
+- [ ] Close browser DevTools (they slow things down)
+- [ ] No browser extensions interfering
+- [ ] Home Assistant CPU usage normal
+- [ ] Network connection stable
+
+**Optimization tips:**
+- Compress images more aggressively
+- Reduce dashboard complexity
+- Disable browser extensions
+- Close other Home Assistant tabs
 
 ---
 
-## Getting Help
+## 📞 Getting Help
 
-1. **Check Configuration Examples:**
-   - See `CONFIG_EXAMPLE.md` in repository
+### Documentation
+- `README.md` - Overview and features
+- `CONFIG_EXAMPLE.md` - Configuration examples
+- `UI_UX_DESIGN.md` - Design philosophy and details
 
-2. **Check Home Assistant Logs:**
-   - Settings → System → Logs
+### Home Assistant Resources
+- Forums: https://community.home-assistant.io/
+- Discord: https://discord.gg/home-assistant
+- Docs: https://www.home-assistant.io/
 
-3. **GitHub Issues:**
-   - Visit: https://github.com/matthan02-cell/matt-flow/issues
+### Debugging Steps
 
-4. **Community Support:**
-   - Home Assistant Forums
-   - Home Assistant Discord
+**1. Check Logs**
+```
+Settings → System → Logs
+Look for errors related to deye or battery
+```
+
+**2. Browser Console**
+```
+F12 → Console tab
+Look for JavaScript errors
+Note exact error message
+```
+
+**3. Verify Integration**
+```
+Settings → Devices & Services
+Deye Inverter → enabled?
+Battery integration → enabled?
+```
+
+**4. Entity Status**
+```
+Developer Tools → States
+Click each entity
+Check "Last updated" timestamp
+Should update every few seconds
+```
+
+---
+
+## 🎉 Success Checklist
+
+You're done when:
+- ✅ Card appears on dashboard
+- ✅ All values update in real-time
+- ✅ Background images show (day and night)
+- ✅ Theme switches automatically
+- ✅ Battery SOC bars animate smoothly
+- ✅ Energy flow diagram displays all nodes
+
+**Congratulations! Your solar monitoring dashboard is live! ☀️🔋**
 
 ---
 
 ## Next Steps
 
-1. ✅ Install the card (this guide)
-2. 📊 Configure with your entities
-3. 🎨 Optional: Add custom background image
-4. 🏠 Add to your dashboard
-5. ⚡ Monitor your solar system!
+1. **Customize**: Adjust entity names and battery labels
+2. **Explore**: Try different background images
+3. **Monitor**: Watch your solar system in real-time
+4. **Automate**: Create automations based on SOC/generation
+5. **Share**: Show off your dashboard to friends!
 
-**Enjoy your solar monitoring! ☀️🔋**
+---
+
+## Additional Help
+
+### Forum Post Template
+
+If you need help, post on Home Assistant forums with:
+
+```
+**System:**
+- Home Assistant version: [e.g., 2024.12]
+- Deye integration: [version or link]
+- Browser: [Chrome/Firefox/Safari]
+
+**Issue:**
+[Describe what's not working]
+
+**Steps Taken:**
+[What you've already tried]
+
+**Entity Names:**
+[Your actual entity names from Developer Tools]
+
+**Logs/Errors:**
+[Any error messages]
+
+**Screenshots:**
+[Attach screenshots if relevant]
+```
+
+This helps others assist you faster!
+
+---
+
+**Happy Solar Monitoring! ☀️🔋**
+
+*v1.0 Installation Guide*
+*Last Updated: 2026-05-31*

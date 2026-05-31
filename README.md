@@ -1,190 +1,334 @@
-# Deye Inverter Flow Card
+# Deye Inverter Flow Card - Master UI/UX Edition
 
-A fully custom Home Assistant Lovelace card that renders a live, animated energy-flow diagram for a **Deye Solar Inverter** system with **LVFU Battery Storage**.
+A beautifully designed Home Assistant Lovelace card that visualizes real-time energy flow for **Deye Solar Inverter** systems with **LVFU Battery Storage**.
 
-This card provides real-time visualization of:
-- ☀️ Solar panel generation (PV1, PV2, PV3, PV4)
-- 🔋 Dual LVFU battery monitoring (SOC, power, voltage, temperature)
-- 🏠 Home consumption
-- ⚡ Grid import/export
-- 🎨 Custom background image support
+**Built with Master UI/UX Design principles for maximum clarity, interactivity, and visual appeal.**
 
-## Features
+## ✨ Key Features
 
-- **Animated Energy Flow** - Watch power flow in real-time between solar, batteries, grid, and home
-- **Dual Battery Support** - Monitor two LVFU batteries independently with separate metrics
-- **Live Monitoring** - Real-time power, voltage, current, and temperature data
-- **Custom Background** - Use your own images as the card background
-- **No Dependencies** - Single JavaScript file, runs entirely within Home Assistant
-- **Visual Editor** - Easy configuration through Home Assistant's built-in UI
-- **Responsive Design** - Works on desktop, tablets, and mobile devices
+### 🎨 Professional UI/UX Design
+- **Glassmorphism Design** - Modern frosted glass aesthetic with backdrop blur effects
+- **Dual Day/Night Themes** - Automatically switches between day and night backgrounds with intelligent time-based detection
+- **Custom Background Images** - Use your own day/night photos for immersive monitoring
+- **Responsive Grid Layout** - Adapts perfectly to any screen size
+- **Smooth Animations** - Subtle transitions and pulsing energy flows
+- **Professional Typography** - Carefully chosen fonts and hierarchy for readability
 
-## Installation
+### ⚡ Real-Time Energy Monitoring
+- **Live Power Flow Visualization** - Watch energy move between solar, batteries, home, and grid
+- **Animated Energy Nodes** - Interactive cards showing current power generation/consumption
+- **Battery State Tracking** - Dual battery monitoring with SOC bars and real-time metrics
+- **Grid Direction Indicator** - Shows import, export, or balanced grid status
+- **System Summary** - Quick overview of total generation, consumption, and grid status
+
+### 🌞 Intelligent Day/Night Switching
+- **Auto Mode** - Switches based on time of day and solar generation
+- **Manual Modes** - Force day or night theme
+- **Context-Aware Colors** - Background gradients change with theme
+- **Optimized Readability** - Text colors and opacity adjust for visibility
+
+### 🎯 Advanced Features
+- **No External Dependencies** - Single JavaScript file, pure ES6
+- **Visual Configuration Editor** - No YAML needed, intuitive GUI
+- **Real-Time Updates** - Data refreshes every second
+- **Hover Effects** - Interactive elements respond to user interaction
+- **Accessibility Ready** - Clear contrast and readable fonts
+
+## 📸 Design Preview
+
+The card displays your custom day/night background images with an elegant overlay system:
+
+- **Daytime**: Shows your home with bright sunlight, solar panels generating power
+- **Nighttime**: Shows your home with moonlight, house lights on, minimal solar generation
+
+The glassmorphic UI elements float over your images with perfect readability.
+
+## 🚀 Quick Installation
 
 ### Method 1: HACS (Recommended)
 
 1. Open **HACS** → **Frontend** → **Custom repositories**
-2. Add this repository: `https://github.com/matthan02-cell/matt-flow`
-3. Search for **deye-inverter-flow-card** and click **Explore & Download**
-4. The card will be automatically registered
-5. **Hard refresh** your browser (`Ctrl + Shift + R`)
-6. Add the card to your dashboard: `type: custom:deye-inverter-flow-card`
+2. Add: `https://github.com/matthan02-cell/matt-flow`
+3. Search for **deye-inverter-flow-card** and download
+4. Hard refresh browser (`Ctrl + Shift + R`)
+5. Add card: `type: custom:deye-inverter-flow-card`
 
-### Method 2: Manual Installation
+### Method 2: Manual
 
-1. Clone or download this repository
-2. Copy `deye-inverter-flow-card.js` to `/config/www/`
-3. In Home Assistant, go to **Settings** → **Dashboards** → **Resources**
-4. Click **Create resource** and add:
-   - **URL**: `/local/deye-inverter-flow-card.js`
-   - **Type**: `JavaScript Module`
-5. Hard refresh your browser
-6. Add the card to your dashboard with type: `custom:deye-inverter-flow-card`
+1. Copy `deye-inverter-flow-card.js` to `/config/www/`
+2. Settings → Dashboards → Resources → Add:
+   - URL: `/local/deye-inverter-flow-card.js`
+   - Type: `JavaScript Module`
+3. Hard refresh browser
+4. Add card to dashboard
 
-## Configuration
+## 📋 Configuration
 
-### Basic Setup
+### Visual Editor (Recommended)
 
-The card uses Home Assistant's visual editor for configuration. No YAML knowledge required!
+1. Add card with type: `custom:deye-inverter-flow-card`
+2. Click **Edit card** to open visual editor
+3. Fill in your entity names
+4. Select theme mode (Auto/Day/Night)
+5. Save and enjoy!
 
-#### Required Entities
-
-**Inverter:**
-- Inverter name/display name
-- Total PV power entity
-- Grid import/export entity
-- House consumption entity
-
-**Battery (Primary & Secondary):**
-- State of Charge (%)
-- Current power (W)
-- Voltage (V)
-- Current (A)
-- Cell temperatures
-- Capacity (Ah or Wh)
-
-### Optional Entities
-
-- Extra PV strings (PV3, PV4)
-- System temperature sensors
-- Custom labels for tiles
-
-### Custom Background Image
-
-To use your custom image as the background:
-
-1. Upload your image to `/config/www/images/`
-2. In the card configuration, set the background image URL to: `/local/images/your-image.jpg`
-3. Adjust opacity if needed for better text readability
-
-**Recommended image specifications:**
-- Format: JPG or PNG
-- Dimensions: 1200x800 px or wider
-- File size: < 500 KB for optimal performance
-
-## Configuration Example
+### YAML Configuration
 
 ```yaml
 type: custom:deye-inverter-flow-card
 title: "Solar Energy Flow"
 inverter_name: "Deye Inverter"
+theme_mode: auto  # auto, day, or night
+
+# Solar & Grid
 pv_total_power: sensor.deye_total_pv_power
 grid_power: sensor.deye_grid_power
-house_power: sensor.deye_house_consumption
+house_power: sensor.deye_load_power
+
+# Battery 1
 battery_primary:
+  name: "LVFU Battery 1"
   soc: sensor.battery_1_soc
   power: sensor.battery_1_power
   voltage: sensor.battery_1_voltage
   current: sensor.battery_1_current
   temp: sensor.battery_1_temp
   capacity_ah: 100
+
+# Battery 2
 battery_secondary:
+  name: "LVFU Battery 2"
   soc: sensor.battery_2_soc
   power: sensor.battery_2_power
   voltage: sensor.battery_2_voltage
   current: sensor.battery_2_current
   temp: sensor.battery_2_temp
   capacity_ah: 100
-background_image: "/local/images/my-system.jpg"
-background_opacity: 0.15
 ```
 
-## Supported Entities
+## 🎨 UI/UX Design Highlights
 
-### Deye Inverter
-Most Deye inverters expose the following entities via Home Assistant:
-- `sensor.deye_*_total_pv_power` - Total solar generation
-- `sensor.deye_*_grid_power` - Grid import/export (positive = import, negative = export)
-- `sensor.deye_*_load_power` - Home consumption
-- `sensor.deye_*_battery_power` - Battery power flow
+### Glassmorphism Implementation
+The card uses a modern design pattern combining:
+- Frosted glass effect with `backdrop-filter: blur()`
+- Semi-transparent backgrounds with RGBA colors
+- Subtle borders with opacity
+- Smooth transitions on all interactive elements
 
-### LVFU Batteries
-- `sensor.lvfu_battery_*_soc` - State of charge (%)
-- `sensor.lvfu_battery_*_power` - Power (W)
-- `sensor.lvfu_battery_*_voltage` - Voltage (V)
-- `sensor.lvfu_battery_*_current` - Current (A)
-- `sensor.lvfu_battery_*_cell_voltage_01` through `15` - Individual cell voltages
-- `sensor.lvfu_battery_*_temperature` - BMS temperature
+### Color Scheme
+- **Day Mode**: Purple to violet gradient (`#667eea` to `#764ba2`)
+- **Night Mode**: Dark slate gradient (`#0f172a` to `#1e293b`)
+- **Accent Colors**: Green for positive states, warm whites for text
 
-## Troubleshooting
+### Typography Hierarchy
+- **Title**: 24px, Bold, High contrast
+- **Section Labels**: 12px, Uppercase, Medium weight
+- **Values**: 18-20px, Bold, Clear visibility
+- **Stats**: 11-13px, Regular weight, Slightly muted
+
+### Interactive Elements
+- **Energy Nodes**: Hover for elevation and background change
+- **Cards**: Smooth scale and opacity transitions
+- **Progress Bars**: Smooth width animations
+- **Icons**: Emoji for quick visual recognition
+
+## 🏠 Setup Guide
+
+### Step 1: Prepare Your Background Images
+
+Place in `/config/www/images/`:
+- `DayPhoto.jpg` - Your home during daytime (recommended: 1200x800+ px)
+- `NightPhoto.jpg` - Your home at night (recommended: 1200x800+ px)
+
+**Image Tips:**
+- Use high-quality photos for best visual impact
+- Ensure key elements (solar panels, home) are visible
+- Compress to <500KB for optimal performance
+- 16:9 aspect ratio works best
+
+### Step 2: Configure Deye Inverter
+
+Ensure these entities exist in Home Assistant:
+```
+sensor.deye_total_pv_power
+sensor.deye_grid_power
+sensor.deye_load_power
+```
+
+**Verify in Developer Tools → States**
+
+### Step 3: Configure LVFU Batteries
+
+Set up battery monitoring via:
+- **CAN-Bus** (recommended)
+- **MQTT** integration
+- **REST sensors** if HTTP API available
+
+**Required entities per battery:**
+```
+sensor.battery_X_soc       # State of Charge (%)
+sensor.battery_X_power     # Power (W)
+sensor.battery_X_voltage   # Voltage (V)
+sensor.battery_X_current   # Current (A)
+sensor.battery_X_temp      # Temperature (°C)
+```
+
+### Step 4: Add Card to Dashboard
+
+Use visual editor and configure with your entities.
+
+## 📊 Data Display
+
+### Energy Flow Section
+Shows real-time power for:
+- ☀️ **Solar**: PV generation
+- ⚡ **Grid**: Import/export power
+- 🏠 **House**: Home consumption
+- 🔋 **Batteries**: Combined battery power
+
+### Battery Cards
+Each battery displays:
+- **Battery Name** with icon
+- **State of Charge** with visual bar
+- **Current Power** output/input
+- **Voltage** in volts
+- **Temperature** in celsius
+
+### System Summary
+Quick overview of:
+- **Total Generation**: Current solar output
+- **House Load**: Home consumption
+- **Grid Status**: Direction indicator (Import/Export/Balanced)
+
+## 🎯 Theme Switching
+
+### Auto Mode (Recommended)
+- Switches based on time of day (6 AM - 6 PM = day, else = night)
+- Also considers solar generation (if <100W = night theme)
+- Intelligent for cloudy days and seasonal changes
+
+### Day Mode
+- Always shows day theme
+- Use for testing or if you prefer day visualization
+
+### Night Mode
+- Always shows night theme
+- Use for testing or if you prefer night visualization
+
+## 🔧 Advanced Configuration
+
+### Custom Entity Names
+
+If your entities have different names:
+
+```yaml
+battery_primary:
+  name: "Main Battery"
+  soc: sensor.my_custom_soc_entity
+  power: sensor.my_custom_power_entity
+  # ... map all entities
+```
+
+### Theme Colors
+
+The card uses CSS gradients that can be customized. For custom themes, modify the `.day-mode` and `.night-mode` class styles in the JavaScript.
+
+## 📱 Responsive Design
+
+The card adapts to:
+- **Desktop**: Full 3-column layout
+- **Tablet**: 2-column layout
+- **Mobile**: Single column stacked layout
+
+All elements scale automatically with viewport.
+
+## ⚡ Performance
+
+- **No dependencies**: Pure JavaScript
+- **Lightweight**: ~20KB uncompressed
+- **Efficient updates**: 1-second refresh cycle
+- **GPU acceleration**: CSS animations use `transform`
+- **Low memory usage**: Single card instance
+
+## 🐛 Troubleshooting
 
 ### Card doesn't appear
-- Check the browser console for errors (`F12` → **Console** tab)
-- Verify the file path is correct in Resources
-- Hard refresh (`Ctrl + Shift + R`)
+- [ ] Hard refresh: `Ctrl+Shift+R`
+- [ ] Check console for errors: `F12`
+- [ ] Verify file path in Resources
+- [ ] Restart Home Assistant
 
-### Missing data
-- Ensure all required entities exist in Home Assistant
-- Check entity names match your system exactly
-- Some integrations may require additional setup
+### Values show as 0
+- [ ] Verify entities in Developer Tools → States
+- [ ] Check entity names (case-sensitive)
+- [ ] Ensure integrations are enabled
+- [ ] Check Home Assistant logs
 
-### Image not showing
-- Verify the image path is accessible at `/local/images/`
-- Check file size and format
-- Use the browser DevTools to see if the image loads
+### Images not showing
+- [ ] Verify `DayPhoto.jpg` and `NightPhoto.jpg` in `/config/www/images/`
+- [ ] Use `/local/images/` prefix in paths
+- [ ] Check browser console for 404 errors
+- [ ] Supported formats: JPG, PNG, WEBP
 
-## Architecture
+### Slow animations
+- [ ] Close browser DevTools
+- [ ] Check system CPU usage
+- [ ] Reduce card update frequency if needed
+- [ ] Try disabling browser extensions
 
-The card is built with:
-- **Pure JavaScript** (ES6) - No frameworks or build tools
-- **SVG** - Animated flow diagrams
-- **HTML Canvas** - Future sun position visualization
-- **Home Assistant API** - Real-time entity updates
+## 📚 File Structure
 
-The single `deye-inverter-flow-card.js` file contains:
-1. **DeyeInverterFlowCardEditor** - Configuration interface
-2. **DeyeInverterFlowCard** - Display and animation engine
+```
+matt-flow/
+├── deye-inverter-flow-card.js    # Main card (Master UI/UX redesign)
+├── README.md                      # This file
+├── INSTALL.md                     # Installation guide
+├── CONFIG_EXAMPLE.md              # Configuration examples
+├── UI_UX_DESIGN.md               # Design documentation
+├── package.json                   # Package metadata
+├── LICENSE                        # MIT license
+└── images/
+    ├── DayPhoto.jpg              # Your daytime background
+    └── NightPhoto.jpg            # Your nighttime background
+```
 
-## Browser Compatibility
+## 🎓 Design Principles Used
 
-- Chrome/Chromium 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
+1. **Visual Hierarchy** - Size and color guide attention
+2. **Glassmorphism** - Modern, elegant aesthetic
+3. **Progressive Disclosure** - Show key info, hide details
+4. **Consistency** - Uniform colors, spacing, typography
+5. **Feedback** - Hover states, animations provide feedback
+6. **Accessibility** - High contrast, readable fonts
+7. **Responsiveness** - Works on all screen sizes
+8. **Performance** - Smooth 60fps animations
 
-## License
+## 📄 License
 
 MIT License - See LICENSE file
 
-## Credits
+## 🙏 Credits
 
-Based on the excellent [k-flow-card](https://github.com/thekhan1122/k-flow-card) project by thekhan1122, adapted for Deye Inverter and LVFU battery systems.
+- **k-flow-card** by thekhan1122 - Original inspiration
+- **Home Assistant Community** - Ideas and feedback
+- **UI/UX Design** - Modern design patterns and principles
 
-## Support
+## 🤝 Contributing
 
-For issues, feature requests, or questions:
-1. Check existing issues on GitHub
-2. Provide your Home Assistant version, integration versions, and entity names when reporting
-3. Include browser console errors if relevant
-
-## Contributing
-
-Contributions are welcome! Please:
+Contributions welcome! Please:
 1. Fork the repository
-2. Create a feature branch
-3. Test thoroughly with your setup
-4. Submit a pull request with a clear description
+2. Test thoroughly with your setup
+3. Submit pull requests with clear descriptions
+
+## 📞 Support
+
+- 📖 See `INSTALL.md` for installation help
+- 📋 See `CONFIG_EXAMPLE.md` for configuration examples
+- 🔧 See `UI_UX_DESIGN.md` for design details
+- 🐛 Report issues on GitHub
 
 ---
 
-**Happy solar monitoring! ☀️🔋**
+**Built with ❤️ for solar enthusiasts and Home Assistant lovers**
+
+**Ready to monitor your solar energy like never before? ☀️🔋**
